@@ -39,7 +39,7 @@ const HeaderLogo: FC = () => {
         }}
       >
         <Link to="/" style={{color: '#000000', textDecoration: 'none'}}>
-          Экосистема
+          Экосистема.Аккаунт
         </Link>
       </Typography>
     </React.Fragment>

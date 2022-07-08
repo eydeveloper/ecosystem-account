@@ -1,6 +1,6 @@
 import {BaseQueryFn, createApi, FetchArgs, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
-import Cookies from 'js-cookie';
 import {IAuth} from '../models/IAuth';
+import {getJwtToken} from '../utils/jwt';
 
 interface AuthError {
   data: {
@@ -11,9 +11,9 @@ interface AuthError {
 }
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: 'http://localhost:5001/api/auth',
+  baseUrl: `${process.env.REACT_APP_API_URL}/auth`,
   prepareHeaders: (headers) => {
-    const token = Cookies.get('jwtToken');
+    const token = getJwtToken();
 
     if (token) {
       headers.set('Authorization', `Bearer ${token}`);

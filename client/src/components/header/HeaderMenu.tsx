@@ -5,13 +5,16 @@ import MenuItem from '@mui/material/MenuItem';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 import React, {FC, useState} from 'react';
+import {useAppDispatch} from '../../hooks/useAppDispatch';
 import {useAppSelector} from '../../hooks/useAppSelector';
+import {logout} from '../../store/reducers/auth';
 
 const settings = ['Управление аккаунтом'];
 
 const HeaderMenu: FC = () => {
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
   const {user} = useAppSelector(state => state.auth);
+  const dispatch = useAppDispatch();
 
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
@@ -19,6 +22,10 @@ const HeaderMenu: FC = () => {
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
+  };
+
+  const handleLogout = () => {
+    dispatch(logout());
   };
 
   return (
@@ -49,7 +56,7 @@ const HeaderMenu: FC = () => {
             <Typography textAlign="center">{setting}</Typography>
           </MenuItem>
         ))}
-        <MenuItem key="logout">
+        <MenuItem key="logout" onClick={handleLogout}>
           <Typography textAlign="center">Выйти</Typography>
         </MenuItem>
       </Menu>

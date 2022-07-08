@@ -5,7 +5,7 @@ import AppRouter from './components/AppRouter';
 import Header from './components/header/Header';
 import Loader from './components/UI/Loader';
 import {authApi} from './services/AuthService';
-import {saveJwtToken} from './utils/jwt';
+import {setJwtToken} from './utils/jwt';
 
 const theme = createTheme({
   palette: {
@@ -18,7 +18,7 @@ const App: FC = () => {
 
   useEffect(() => {
     if (data?.token) {
-      saveJwtToken(data.token);
+      setJwtToken(data.token);
     }
   }, [data]);
 
