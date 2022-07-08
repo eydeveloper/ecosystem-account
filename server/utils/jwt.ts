@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 
 interface JwtPayload {
-  id: number;
+  id: string;
 }
 
 export const createJwtToken = (payload: JwtPayload) => {

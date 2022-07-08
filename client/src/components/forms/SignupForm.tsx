@@ -1,4 +1,5 @@
 import LoadingButton from '@mui/lab/LoadingButton';
+import {FormGroup} from '@mui/material';
 import Alert from '@mui/material/Alert';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -7,13 +8,23 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import React, {ChangeEvent, FC, FormEvent, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
-import {authApi} from '../../../services/AuthService';
+import {authApi} from '../../services/AuthService';
 
-const LoginForm: FC = () => {
+const SignUpForm: FC = () => {
   const navigate = useNavigate();
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [login, {isLoading, error}] = authApi.useLoginMutation();
+  const [signup, {isLoading, error}] = authApi.useSignupMutation();
+
+  const handleInputFirstName = (event: ChangeEvent<HTMLInputElement>) => {
+    setFirstName(event.target.value);
+  };
+
+  const handleInputLastName = (event: ChangeEvent<HTMLInputElement>) => {
+    setLastName(event.target.value);
+  };
 
   const handleInputEmail = (event: ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);
@@ -23,19 +34,19 @@ const LoginForm: FC = () => {
     setPassword(event.target.value);
   };
 
-  const handleCreateUser = async () => {
-    navigate('/signup');
+  const handleLogin = async () => {
+    navigate('/login');
   };
 
-  const handleLogin = async (event: FormEvent<HTMLFormElement>) => {
+  const handleRegister = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    await login({email, password}).unwrap();
+    await signup({firstName, lastName, email, password}).unwrap();
   };
 
   return (
     <Box
       component="form"
-      onSubmit={handleLogin}
+      onSubmit={handleRegister}
       sx={{
         display: 'flex',
         justifyContent: 'center',
@@ -44,7 +55,31 @@ const LoginForm: FC = () => {
       }}
     >
       <Card sx={{padding: 5, boxShadow: 3}}>
-        <Typography variant="h5" sx={{textAlign: 'center'}}>Вход</Typography>
+        <Typography variant="h5" sx={{textAlign: 'center'}}>Создание аккаунта</Typography>
+
+        <FormGroup>
+          <Box sx={{display: 'flex', gap: 1}}>
+            <TextField
+              required
+              id="outlined-required"
+              label="Имя"
+              value={firstName}
+              onInput={handleInputFirstName}
+              size="small"
+              sx={{marginTop: 2}}
+            />
+
+            <TextField
+              required
+              id="outlined-required"
+              label="Фамилия"
+              value={lastName}
+              onInput={handleInputLastName}
+              size="small"
+              sx={{marginTop: 2}}
+            />
+          </Box>
+        </FormGroup>
 
         <TextField
           required
@@ -53,6 +88,7 @@ const LoginForm: FC = () => {
           value={email}
           onInput={handleInputEmail}
           fullWidth
+          size="small"
           sx={{marginTop: 2}}
         />
 
@@ -64,14 +100,15 @@ const LoginForm: FC = () => {
           value={password}
           onInput={handleInputPassword}
           fullWidth
+          size="small"
           sx={{marginTop: 2}}
         />
 
         {error && <Alert severity="error" sx={{marginTop: 2}}>{'data' in error && error.data.message}</Alert>}
 
         <Box sx={{display: 'flex', justifyContent: 'space-between'}}>
-          <Button onClick={handleCreateUser} sx={{marginTop: 2}}>
-            Создать аккаунт
+          <Button onClick={handleLogin} sx={{marginTop: 2}}>
+            Войти
           </Button>
           <LoadingButton
             type="submit"
@@ -79,7 +116,7 @@ const LoginForm: FC = () => {
             loading={isLoading}
             sx={{marginTop: 2}}
           >
-            Войти
+            Создать аккаунт
           </LoadingButton>
         </Box>
       </Card>
@@ -87,4 +124,4 @@ const LoginForm: FC = () => {
   );
 };
 
-export default LoginForm;
+export default SignUpForm;

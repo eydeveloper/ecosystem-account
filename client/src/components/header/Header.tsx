@@ -6,9 +6,9 @@ import Toolbar from '@mui/material/Toolbar';
 import React, {FC} from 'react';
 import {Link} from 'react-router-dom';
 import {useAppSelector} from '../../hooks/useAppSelector';
-import {HasChildren} from '../Interfaces/HasChildren';
-import HeaderLogo from './Logo';
-import HeaderMenu from './Menu';
+import {HasChildren} from '../types/HasChildren';
+import HeaderLogo from './HeaderLogo';
+import HeaderMenu from './HeaderMenu';
 
 const Header: FC = () => {
   const {isAuthorized} = useAppSelector(state => state.auth);

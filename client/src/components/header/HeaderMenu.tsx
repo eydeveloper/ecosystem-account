@@ -5,11 +5,11 @@ import MenuItem from '@mui/material/MenuItem';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 import React, {FC, useState} from 'react';
-import {useAppDispatch} from '../../../hooks/useAppDispatch';
-import {useAppSelector} from '../../../hooks/useAppSelector';
-import {logout} from '../../../store/reducers/auth';
-import {ClickableHasChildren} from '../../Interfaces/ClickableHasChildren';
-import {ClosableHasChildren} from '../../Interfaces/ClosableHasChildren';
+import {useAppDispatch} from '../../hooks/useAppDispatch';
+import {useAppSelector} from '../../hooks/useAppSelector';
+import {logout} from '../../store/reducers/auth';
+import {ClickableHasChildren} from '../types/ClickableHasChildren';
+import {ClosableHasChildren} from '../types/ClosableHasChildren';
 
 const menuList = ['Управление аккаунтом'];
 
