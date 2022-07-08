@@ -8,7 +8,7 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import React, {ChangeEvent, FC, FormEvent, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
-import {authApi} from '../../services/AuthService';
+import {authApi} from '../../../services/AuthService';
 
 const SignUpForm: FC = () => {
   const navigate = useNavigate();
