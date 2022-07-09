@@ -7,8 +7,8 @@ export default class UsersServices {
     return user;
   }
 
-  static async find(filterQuery: {} = {}) {
-    return User.find(filterQuery);
+  static async findOne(filterQuery: {} = {}) {
+    return User.findOne(filterQuery);
   }
 
   static async findById(id: number): Promise<IUser | null> {

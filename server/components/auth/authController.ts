@@ -44,7 +44,8 @@ export default class AuthController {
       }
 
       const {firstName, lastName, email, password} = request.body;
-      const candidate = await UsersServices.find({email});
+
+      const candidate = await UsersServices.findOne({email});
 
       if (candidate) {
         throw new AuthError('Пользователь с указанным адресом эл. почты уже зарегистрирован.', 400);
