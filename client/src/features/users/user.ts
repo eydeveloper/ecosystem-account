@@ -1,0 +1,7 @@
+export default interface User {
+  firstName: string;
+  lastName: string;
+  avatar: string;
+  email: string;
+  password: string;
+}
