@@ -1,11 +1,11 @@
 import React, {FC} from 'react';
 
-const Settings: FC = () => {
+const Account: FC = () => {
   return (
     <div>
-      Settings page
+      Account page
     </div>
   );
 };
 
-export default Settings;
+export default Account;

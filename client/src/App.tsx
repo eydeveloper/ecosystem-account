@@ -1,18 +1,12 @@
-import {CssBaseline} from '@mui/material';
-import {createTheme, ThemeProvider} from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+import StyledEngineProvider from '@mui/material/StyledEngineProvider';
 import React, {FC, useEffect} from 'react';
-import {authApi} from './services/AuthService';
-import {setJwtToken} from './utils/jwt';
-import Loader from './components/common/Loader';
-import Header from './components/header/Header';
-import './App.css';
+import './App.scss';
 import AppRouter from './components/AppRouter';
-
-const theme = createTheme({
-  palette: {
-    mode: 'light'
-  }
-});
+import PageLoader from './components/Common/Loader/PageLoader/PageLoader';
+import Header from './components/Header/Header';
+import {authApi} from './services/auth';
+import {setJwtToken} from './utils/jwt';
 
 const App: FC = () => {
   const {data, isLoading} = authApi.useVerifyQuery({});
@@ -24,11 +18,11 @@ const App: FC = () => {
   }, [data]);
 
   return (
-    <ThemeProvider theme={theme}>
+    <StyledEngineProvider injectFirst>
       <CssBaseline />
       <Header />
-      {isLoading ? <Loader /> : <AppRouter />}
-    </ThemeProvider>
+      {isLoading ? <PageLoader /> : <AppRouter />}
+    </StyledEngineProvider>
   );
 };
 

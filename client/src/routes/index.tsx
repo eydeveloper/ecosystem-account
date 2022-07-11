@@ -1,23 +1,19 @@
+import Account from '../pages/Account';
 import Login from '../pages/Login';
-import Settings from '../pages/Settings';
-import SignUp from '../pages/SignUp';
-
-interface IRoute {
-  path: string;
-  element: JSX.Element;
-}
+import Signup from '../pages/Signup';
+import {IRoute} from './types';
 
 export enum RouteNames {
   LOGIN = '/login',
   SIGNUP = '/signup',
-  SETTINGS = '/settings',
+  ACCOUNT = '/account',
 }
 
 export const publicRoutes: IRoute[] = [
   {path: RouteNames.LOGIN, element: <Login />},
-  {path: RouteNames.SIGNUP, element: <SignUp />}
+  {path: RouteNames.SIGNUP, element: <Signup />}
 ];
 
 export const privateRoutes: IRoute[] = [
-  {path: RouteNames.SETTINGS, element: <Settings />}
+  {path: RouteNames.ACCOUNT, element: <Account />}
 ];

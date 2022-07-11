@@ -1,0 +1,28 @@
+.Bar {
+  position: static;
+  background-color: transparent;
+  box-shadow: 0 2px 1px -1px rgb(0 0 0 / 20%), 0 1px 1px 0 rgb(0 0 0 / 14%), 0 1px 3px 0 rgb(0 0 0 / 12%);
+}
+
+.Container {
+  max-width: none;
+}
+
+.Toolbar {
+  padding-right: 0;
+  padding-left: 0;
+}
+
+.Logo {
+  font-family: monospace;
+  font-weight: 700;
+  flex-grow: 1;
+  user-select: none;
+  text-decoration: none;
+  letter-spacing: .3rem;
+  color: #000000;
+}
+
+.Login-Link {
+  color: #ffffff;
+}

@@ -1,16 +1,11 @@
 import {CircularProgress} from '@mui/material';
 import Box from '@mui/material/Box';
 import React from 'react';
+import styles from './Loader.module.scss';
 
 const Loader = () => {
   return (
-    <Box sx={{
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      width: '100%',
-      height: 'calc(100vh - 64px)'
-    }}>
+    <Box className={styles['Loader']}>
       <CircularProgress />
     </Box>
   );

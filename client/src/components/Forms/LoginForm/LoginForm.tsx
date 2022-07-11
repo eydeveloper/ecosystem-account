@@ -7,12 +7,14 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import React, {ChangeEvent, FC, FormEvent, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
-import {authApi} from '../../services/AuthService';
+import {authApi} from '../../../services/auth';
+import styles from '../Form.module.scss';
 
 const LoginForm: FC = () => {
-  const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  const navigate = useNavigate();
   const [login, {isLoading, error}] = authApi.useLoginMutation();
 
   const handleInputEmail = (event: ChangeEvent<HTMLInputElement>) => {
@@ -33,52 +35,40 @@ const LoginForm: FC = () => {
   };
 
   return (
-    <Box
-      component="form"
-      onSubmit={handleLogin}
-      sx={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        height: 'calc(100vh - 64px)'
-      }}
-    >
-      <Card sx={{padding: 5, boxShadow: 3}}>
-        <Typography variant="h5" sx={{textAlign: 'center'}}>Вход</Typography>
+    <Box className={styles['Form']} onSubmit={handleLogin} component="form">
+      <Card className={styles['Form-Card']}>
+        <Typography className={styles['Form-Title']} variant="h5">
+          Вход
+        </Typography>
 
         <TextField
+          className={styles['Form-TextField']}
           required
-          id="outlined-required"
           label="Адрес эл. почты"
           value={email}
           onInput={handleInputEmail}
-          fullWidth
-          sx={{marginTop: 2}}
         />
 
         <TextField
+          className={styles['Form-TextField']}
           required
-          id="outlined-required"
           type="password"
           label="Пароль"
           value={password}
           onInput={handleInputPassword}
-          fullWidth
-          sx={{marginTop: 2}}
         />
 
-        {error && <Alert severity="error" sx={{marginTop: 2}}>{'data' in error && error.data.message}</Alert>}
+        {error &&
+          <Alert className={styles['Form-Alert']} severity="error">
+            {'data' in error && error.data.message}
+          </Alert>
+        }
 
-        <Box sx={{display: 'flex', justifyContent: 'space-between'}}>
-          <Button onClick={handleCreateUser} sx={{marginTop: 2}}>
+        <Box className={styles['Form-Controls']}>
+          <Button onClick={handleCreateUser}>
             Создать аккаунт
           </Button>
-          <LoadingButton
-            type="submit"
-            variant="contained"
-            loading={isLoading}
-            sx={{marginTop: 2}}
-          >
+          <LoadingButton type="submit" variant="contained" loading={isLoading}>
             Войти
           </LoadingButton>
         </Box>

@@ -1,6 +1,6 @@
 import {createSlice} from '@reduxjs/toolkit';
-import {IUser} from '../../../models/IUser';
-import {authApi} from '../../../services/AuthService';
+import IUser from '../../../models/IUser';
+import {authApi} from '../../../services/auth';
 import {removeJwtToken, setJwtToken} from '../../../utils/jwt';
 import {AuthState} from './types';
 
@@ -29,7 +29,6 @@ export const authSlice = createSlice({
         state.isLoading = false;
       }
     );
-
     builder.addMatcher(
       authApi.endpoints.login.matchFulfilled,
       (state, action) => {
@@ -38,7 +37,6 @@ export const authSlice = createSlice({
         state.user = action.payload.user;
       }
     );
-
     builder.addMatcher(
       authApi.endpoints.signup.matchFulfilled,
       (state, action) => {

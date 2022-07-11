@@ -1,5 +1,4 @@
 import LoadingButton from '@mui/lab/LoadingButton';
-import {FormGroup} from '@mui/material';
 import Alert from '@mui/material/Alert';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -8,14 +7,16 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import React, {ChangeEvent, FC, FormEvent, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
-import {authApi} from '../../services/AuthService';
+import {authApi} from '../../../services/auth';
+import styles from '../Form.module.scss';
 
-const SignUpForm: FC = () => {
-  const navigate = useNavigate();
+const SignupForm: FC = () => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  const navigate = useNavigate();
   const [signup, {isLoading, error}] = authApi.useSignupMutation();
 
   const handleInputFirstName = (event: ChangeEvent<HTMLInputElement>) => {
@@ -44,78 +45,62 @@ const SignUpForm: FC = () => {
   };
 
   return (
-    <Box
-      component="form"
-      onSubmit={handleRegister}
-      sx={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        height: 'calc(100vh - 64px)'
-      }}
-    >
-      <Card sx={{padding: 5, boxShadow: 3}}>
-        <Typography variant="h5" sx={{textAlign: 'center'}}>Создание аккаунта</Typography>
+    <Box className={styles['Form']} onSubmit={handleRegister} component="form">
+      <Card className={styles['Form-Card']}>
+        <Typography className={styles['Form-Title']} variant="h5">
+          Создание аккаунта
+        </Typography>
 
-        <FormGroup>
-          <Box sx={{display: 'flex', gap: 1}}>
-            <TextField
-              required
-              id="outlined-required"
-              label="Имя"
-              value={firstName}
-              onInput={handleInputFirstName}
-              size="small"
-              sx={{marginTop: 2}}
-            />
+        <Box className={styles['Form-Row']}>
+          <TextField
+            className={styles['Form-TextField']}
+            required
+            label="Имя"
+            value={firstName}
+            onInput={handleInputFirstName}
+            size="small"
+          />
 
-            <TextField
-              required
-              id="outlined-required"
-              label="Фамилия"
-              value={lastName}
-              onInput={handleInputLastName}
-              size="small"
-              sx={{marginTop: 2}}
-            />
-          </Box>
-        </FormGroup>
+          <TextField
+            className={styles['Form-TextField']}
+            required
+            label="Фамилия"
+            value={lastName}
+            onInput={handleInputLastName}
+            size="small"
+          />
+        </Box>
 
         <TextField
+          className={styles['Form-TextField']}
           required
-          id="outlined-required"
           label="Адрес эл. почты"
           value={email}
           onInput={handleInputEmail}
-          fullWidth
           size="small"
-          sx={{marginTop: 2}}
         />
 
         <TextField
+          className={styles['Form-TextField']}
           required
-          id="outlined-required"
           type="password"
           label="Пароль"
           value={password}
           onInput={handleInputPassword}
-          fullWidth
           size="small"
-          sx={{marginTop: 2}}
         />
 
-        {error && <Alert severity="error" sx={{marginTop: 2}}>{'data' in error && error.data.message}</Alert>}
+        {error &&
+          <Alert className={styles['Form-Alert']} severity="error">
+            {'data' in error && error.data.message}
+          </Alert>
+        }
 
-        <Box sx={{display: 'flex', justifyContent: 'space-between'}}>
-          <Button onClick={handleLogin} sx={{marginTop: 2}}>
+        <Box className={styles['Form-Controls']}>
+          <Button onClick={handleLogin}>
             Войти
           </Button>
-          <LoadingButton
-            type="submit"
-            variant="contained"
-            loading={isLoading}
-            sx={{marginTop: 2}}
-          >
+          <LoadingButton type="submit" variant="contained" loading={isLoading}>
             Создать аккаунт
           </LoadingButton>
         </Box>
@@ -124,4 +109,4 @@ const SignUpForm: FC = () => {
   );
 };
 
-export default SignUpForm;
+export default SignupForm;
