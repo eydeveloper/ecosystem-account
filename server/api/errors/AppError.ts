@@ -1,9 +1,9 @@
-export interface IAuthError {
+interface IAppError {
   message: string;
   httpCode: number;
 }
 
-export class AuthError extends Error implements IAuthError {
+export class AppError extends Error implements IAppError {
   public readonly httpCode: number;
 
   constructor(message: string, httpCode: number) {

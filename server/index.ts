@@ -1,8 +1,8 @@
 import 'dotenv/config';
 import express, {Express} from 'express';
 import {connect} from 'mongoose';
-import corsMiddleware from './middleware/corsMiddleware';
-import authRouter from './components/auth/authRoutes';
+import corsMiddleware from './api/middlewares/corsMiddleware';
+import authRouter from './api/routes/authRoutes';
 
 const app: Express = express();
 const port: number = Number(process.env.PORT) || 5000;
