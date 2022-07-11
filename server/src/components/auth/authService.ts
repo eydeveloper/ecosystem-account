@@ -2,7 +2,7 @@ import bcrypt from 'bcryptjs';
 import {AppError} from '../../core/errors/appError';
 import {createJwtToken} from '../../core/utils/jwt';
 import User, {IUser} from '../users/user';
-import {UserFormatter} from '../users/userFormatter';
+import {UsersFormatter} from '../users/usersFormatter';
 import UsersDAL from '../users/usersDAL';
 import {AuthResponse, LoginBody, SignupBody} from './types';
 
@@ -19,7 +19,7 @@ export default class AuthService {
       throw new AppError('Неверный пароль. Повторите попытку.', 403);
     }
 
-    const userResponse = UserFormatter.formatToUserResponse(user);
+    const userResponse = UsersFormatter.formatToUserResponse(user);
 
     return {
       token: createJwtToken(userResponse),
@@ -40,7 +40,7 @@ export default class AuthService {
       firstName, lastName, email, password: hashPassword
     } as IUser);
 
-    const userResponse = UserFormatter.formatToUserResponse(user);
+    const userResponse = UsersFormatter.formatToUserResponse(user);
 
     return {
       token: createJwtToken(userResponse),
@@ -56,7 +56,7 @@ export default class AuthService {
       throw new AppError('Пользователь не авторизован.', 401);
     }
 
-    const userResponse = UserFormatter.formatToUserResponse(user);
+    const userResponse = UsersFormatter.formatToUserResponse(user);
 
     return {
       token: createJwtToken(userResponse),

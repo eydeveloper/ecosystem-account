@@ -1,7 +1,7 @@
 import {UserResponse} from '../auth/types';
 import {IUser} from './user';
 
-export class UserFormatter {
+export class UsersFormatter {
   static formatToUserResponse(user: IUser): UserResponse {
     return {
       id: user.id,
