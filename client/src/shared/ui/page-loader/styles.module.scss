@@ -1,0 +1,6 @@
+@import '../loader/styles.module';
+
+.PageLoader {
+  @extend .Loader;
+  height: calc(100vh - 64px);
+}

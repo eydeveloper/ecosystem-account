@@ -1,17 +1,16 @@
 import {combineReducers, configureStore} from '@reduxjs/toolkit';
-import {authApi} from '../features/auth/authService';
-import {authReducer} from '../features/auth/authSlice';
+import {userModel} from 'entities/user';
 
 const rootReducer = combineReducers({
-  authReducer,
-  [authApi.reducerPath]: authApi.reducer
+  userReducer: userModel.reducer,
+  [userModel.api.reducerPath]: userModel.api.reducer
 });
 
 export const setupStore = () => {
   return configureStore({
     reducer: rootReducer,
     middleware: (getDefaultMiddleware) =>
-      getDefaultMiddleware().concat(authApi.middleware)
+      getDefaultMiddleware().concat(userModel.api.middleware)
   });
 };
 
