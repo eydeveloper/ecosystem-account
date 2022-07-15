@@ -5,7 +5,7 @@ import styles from './styles.module.scss';
 
 export const PageLoader = () => {
   return (
-    <Box className={styles['Page-Index']}>
+    <Box className={styles.PageLoader}>
       <CircularProgress />
     </Box>
   );
