@@ -1,10 +1,10 @@
 import CssBaseline from '@mui/material/CssBaseline';
-import StyledEngineProvider from '@mui/material/StyledEngineProvider';
 import {userModel} from 'entities/user';
 import {Routing} from 'pages';
 import React, {FC, useEffect} from 'react';
 import {setJwtToken} from 'shared/lib/utils/jwt';
-import {Header, PageLoader} from 'shared/ui';
+import {PageLoader} from 'shared/ui';
+import {Header} from 'widgets/header/ui';
 import './index.scss';
 import {withProviders} from './providers';
 
@@ -18,11 +18,11 @@ const App: FC = () => {
   }, [data]);
 
   return (
-    <StyledEngineProvider injectFirst>
+    <>
       <CssBaseline />
       <Header />
       {isLoading ? <PageLoader /> : <Routing />}
-    </StyledEngineProvider>
+    </>
   );
 };
 
