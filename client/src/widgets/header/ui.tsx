@@ -6,11 +6,11 @@ import Typography from '@mui/material/Typography';
 import {UserMenu} from 'entities/user/ui';
 import React from 'react';
 import {Link} from 'react-router-dom';
-import {useAppSelector} from 'shared/lib/hooks/useAppSelector';
+import {useVerify} from '../../entities/user/lib/useVerify';
 import styles from './styles.module.scss';
 
 export const Header = () => {
-  const {isAuthorized} = useAppSelector(state => state.userReducer);
+  const {isSuccess} = useVerify();
 
   return (
     <AppBar className={styles.Root}>
@@ -19,7 +19,7 @@ export const Header = () => {
           <Typography className={styles.Logo} variant="h6">
             <Link to="/">Экосистема.Аккаунт</Link>
           </Typography>
-          {isAuthorized ? <UserMenu /> :
+          {isSuccess ? <UserMenu /> :
             <Button variant="contained">
               <Link className={styles.LoginLink} to="/login">
                 Войти

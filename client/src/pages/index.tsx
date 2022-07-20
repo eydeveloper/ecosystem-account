@@ -1,6 +1,6 @@
 import React from 'react';
 import {Navigate, Route, Routes} from 'react-router-dom';
-import {useAppSelector} from 'shared/lib/hooks/useAppSelector';
+import {useVerify} from '../entities/user/lib/useVerify';
 import AccountPage from './account';
 import LoginPage from './login';
 import SignupPage from './signup';
@@ -26,10 +26,10 @@ export const privateRoutes: IRoute[] = [
 ];
 
 export const Routing = () => {
-  const {isAuthorized} = useAppSelector(state => state.userReducer);
+  const {isSuccess} = useVerify();
 
   return (
-    isAuthorized
+    isSuccess
       ?
       <Routes>
         {privateRoutes.map(({path, element}) =>

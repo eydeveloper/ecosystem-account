@@ -5,17 +5,18 @@ import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
+import {useLogin} from 'entities/user/lib/useLogin';
+import {useVerify} from 'entities/user/lib/useVerify';
+import {User} from 'entities/user/model/types';
 import React, {ChangeEvent, FC, FormEvent, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
-import {userModel} from 'entities/user';
 import styles from './styles.module.scss';
 
 export const LoginForm: FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
   const navigate = useNavigate();
-  const [login, {isLoading, error}] = userModel.api.useLoginMutation();
+  const {refetch} = useVerify();
 
   const handleInputEmail = (event: ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);
@@ -29,9 +30,13 @@ export const LoginForm: FC = () => {
     navigate('/signup');
   };
 
+  const {login, isLoading, isError, error} = useLogin();
+
   const handleLogin = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    await login({email, password}).unwrap();
+    await login({email, password} as User);
+    await refetch();
+    navigate('/account');
   };
 
   return (
@@ -58,9 +63,9 @@ export const LoginForm: FC = () => {
           onInput={handleInputPassword}
         />
 
-        {error &&
+        {isError &&
           <Alert className={styles['Form-Alert']} severity="error">
-            {'data' in error && error.data.message}
+            {error.response.data.message}
           </Alert>
         }
 
