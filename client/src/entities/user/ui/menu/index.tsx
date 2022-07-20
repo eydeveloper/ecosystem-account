@@ -3,16 +3,16 @@ import IconButton from '@mui/material/IconButton';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Tooltip from '@mui/material/Tooltip';
-import {userModel} from 'entities/user';
 import React, {FC, useState} from 'react';
-import {useAppDispatch} from 'shared/lib/hooks/useAppDispatch';
-import {useAppSelector} from 'shared/lib/hooks/useAppSelector';
+import {useQueryClient} from 'react-query';
+import {useVerify} from 'entities/user/lib/useVerify';
+import {UserService} from '../../model/service';
 import styles from './styles.module.scss';
 
 export const UserMenu: FC = () => {
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
-  const {user} = useAppSelector(state => state.userReducer);
-  const dispatch = useAppDispatch();
+  const {data} = useVerify();
+  const queryClient = useQueryClient();
 
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
@@ -26,15 +26,15 @@ export const UserMenu: FC = () => {
     window.location.href = `${process.env.REACT_APP_ACCOUNT_URL}`;
   };
 
-  const handleLogoutClick = async () => {
-    dispatch(userModel.actions.logout());
+  const handleLogoutClick = () => {
+    return UserService.logout(queryClient);
   };
 
   return (
-    <React.Fragment>
-      <Tooltip title={`${user.firstName} ${user.lastName}`}>
+    <>
+      <Tooltip title={`${data?.user.firstName} ${data?.user.lastName}`}>
         <IconButton className={styles['Header-Icon-Button']} onClick={handleOpenUserMenu}>
-          <Avatar alt={user.firstName} src="/" />
+          <Avatar alt={data?.user.firstName} src="/" />
         </IconButton>
       </Tooltip>
       <Menu
@@ -59,6 +59,6 @@ export const UserMenu: FC = () => {
           Выйти
         </MenuItem>
       </Menu>
-    </React.Fragment>
+    </>
   );
 };
